@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment Failed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+            background-color: #fff3f3;
+            color: #d8000c;
+        }
+        
+        .container {
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        h1 {
+            color: #b00020;
+        }
+        
+        a {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            background-color: #b00020;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        
+        a:hover {
+            background-color: #900018;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>❌ Payment Not Received</h1>
+        <p>Your payment was not completed or was cancelled.</p>
+        <p>Please try again to complete your purchase.</p>
+        <a href="payment.html">Try Payment Again</a>
+    </div>
+
+    <script>
+        // Remove checkoutProduct if payment failed
+        localStorage.removeItem('checkoutProduct');
+    </script>
+</body>
+
+</html>

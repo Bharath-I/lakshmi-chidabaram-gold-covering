@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orders - Lakshmi Chidambaram Gold Covering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffef2;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #b88a44;
+            border-bottom: 2px solid #b88a44;
+            padding-bottom: 10px;
+        }
+        
+        .order {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+        }
+        
+        .order img {
+            width: 120px;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+        
+        .details,
+        .bill {
+            margin-left: 15px;
+        }
+        
+        .details p,
+        .bill p {
+            margin: 5px 0;
+        }
+        
+        .status {
+            font-weight: bold;
+            color: green;
+            margin-top: 10px;
+        }
+        
+        .no-orders {
+            font-size: 18px;
+            color: #777;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Your Orders</h1>
+    <div id="ordersContainer"></div>
+
+    <script>
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+        const container = document.getElementById("ordersContainer");
+
+        if (orders.length === 0) {
+            container.innerHTML = `<p class="no-orders">No orders have been placed yet.</p>`;
+        } else {
+            orders.forEach((order, index) => {
+                const orderDiv = document.createElement("div");
+                orderDiv.className = "order";
+
+                const status = order.deliveryStatus || "Order Placed";
+
+                orderDiv.innerHTML = `
+          <h3>Order #${index + 1}</h3>
+          <img src="${order.image}" alt="Product Image">
+
+          <div class="section-title">Order Details</div>
+          <div class="details">
+            <p><strong>Product Name:</strong> ${order.name}</p>
+            <p><strong>Product Details:</strong> ${order.details}</p>
+            <p><strong>Quantity:</strong> ${order.quantity}</p>
+            <p class="status">Delivery Status: ${status}</p>
+          </div>
+
+          <div class="section-title">Bill</div>
+          <div class="bill">
+            <p><strong>Price per Unit:</strong> ₹${order.price}</p>
+            <p><strong>Total Price:</strong> ₹${order.price * order.quantity}</p>
+            <p><strong>Payment Mode:</strong> ${order.paymentMode}</p>
+            <p><strong>Date & Time:</strong> ${order.date}</p>
+          </div>
+        `;
+                container.appendChild(orderDiv);
+            });
+        }
+    </script>
+</body>
+
+</html>

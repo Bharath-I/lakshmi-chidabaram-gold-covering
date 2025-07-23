@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lakshmi Chidambaram - Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container signup-container">
+        <h1>Lakshmi Chidambaram Gold Covering</h1>
+        <h2>Customer Registration</h2>
+        <form id="signupForm">
+            <input type="text" id="signupName" placeholder="Full Name" required>
+            <input type="text" id="signupPhone" placeholder="Phone Number" required>
+            <input type="email" id="signupEmail" placeholder="Email Address" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+<div class="product-grid" id="product-list"></div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    const products = [{
+        name: "Ring",
+        price: "₹999",
+        rating: "4.5",
+        image: "images/ring.jpg",
+        description: "Beautiful gold-plated ring."
+    }, {
+        name: "Necklace",
+        price: "₹1499",
+        rating: "4.7",
+        image: "images/necklace.jpg",
+        description: "Elegant traditional necklace."
+    }];
+
+    const container = document.getElementById("product-list");
+
+    products.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+        <img src="${product.image}" onclick='viewProduct(${JSON.stringify(product)})'>
+        <h3 onclick='viewProduct(${JSON.stringify(product)})'>${product.name}</h3>
+        <p>Price: ${product.price}</p>
+        <p>Rating: ${product.rating}</p>
+      `;
+        container.appendChild(card);
+    });
+
+    function viewProduct(product) {
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "product.html";
+    }
+
+    // Close menu if clicked outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.menu-button')) {
+            const dropdown = document.getElementById("dropdownMenu");
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            }
+        }
+    }
+</script>

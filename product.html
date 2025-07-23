@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+        
+        img {
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Product Details</h2>
+    <div id="productContainer"></div>
+
+    <label>Quantity: 
+    <input type="number" id="qty" value="1" min="1">
+  </label><br><br>
+
+    <button onclick="addToCart()">Add to Cart</button>
+    <button onclick="buyNow()">Buy Now</button>
+
+    <script>
+        const product = JSON.parse(localStorage.getItem("selectedProduct"));
+        const container = document.getElementById("productContainer");
+
+        if (!product || !product.name || !product.image) {
+            container.innerHTML = "<p>No product selected.</p>";
+        } else {
+            container.innerHTML = `
+        <img src="${product.image}" alt="${product.name}"><br>
+        <h3>${product.name}</h3>
+        <p>${product.details}</p>
+        <p>Price: ₹${product.price}</p>
+        <p>Rating: ⭐ ${product.rating}</p>
+      `;
+        }
+
+        function addToCart() {
+            const qty = parseInt(document.getElementById("qty").value);
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let existing = cart.find(item => item.name === product.name);
+            if (existing) {
+                existing.quantity += qty;
+            } else {
+                cart.push({...product,
+                    quantity: qty
+                });
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.location.href = "cart.html";
+        }
+
+        function buyNow() {
+            const qty = parseInt(document.getElementById("qty").value);
+            localStorage.setItem("buyNowProduct", JSON.stringify({...product,
+                quantity: qty
+            }));
+            window.location.href = "checkout.html";
+        }
+    </script>
+</body>
+
+</html>

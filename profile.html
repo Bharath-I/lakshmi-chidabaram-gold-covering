@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>My Profile</h2>
+        <form>
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="phone" placeholder="Phone Number" disabled>
+            <button type="button" onclick="requestOTP()">Change Number</button>
+            <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+            <button type="button" onclick="verifyOTP()" style="display:none;" id="verifyBtn">Verify OTP</button>
+        </form>
+        <br>
+        <a href="dashboard.html">← Back</a>
+    </div>
+    <script>
+        function requestOTP() {
+            document.getElementById('otp').style.display = 'block';
+            document.getElementById('verifyBtn').style.display = 'inline';
+            alert("OTP sent to your registered phone.");
+        }
+
+        function verifyOTP() {
+            alert("Phone number changed successfully!");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pay with PhonePe</title>
+</head>
+
+<body onload="makePayment()">
+    <h2>Redirecting to PhonePe...</h2>
+    <script>
+        function makePayment() {
+            const price = localStorage.getItem("productPrice") || "0";
+            document.getElementById("priceDisplay").innerText = price;
+
+            // Construct UPI deep link
+            const upiUrl = `upi://pay?pa=lakshmigold@upi&pn=Lakshmi%20Gold%20Covering&am=${price}&cu=INR`;
+            document.getElementById("upiLink").href = upiUrl;
+            setTimeout(() => {
+                if (confirm("Did you complete the payment?")) {
+                    window.location.href = "payment-success.html";
+                } else {
+                    window.location.href = "payment-failed.html";
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

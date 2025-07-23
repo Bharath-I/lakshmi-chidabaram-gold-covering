@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment Status</title>
+</head>
+
+<body>
+    <h2 id="status"></h2>
+    <div id="bill" style="display:none;">
+        <h3>Order Summary</h3>
+        <div id="orderDetails"></div>
+        <p><strong>Payment Mode:</strong> <span id="paymentMode"></span></p>
+    </div>
+
+    <script>
+        const isPaid = localStorage.getItem("isPaid") === "true";
+        const product = JSON.parse(localStorage.getItem("selectedProduct"));
+        const paymentMode = localStorage.getItem("paymentMode");
+
+        if (isPaid && product) {
+            // Show success message and bill
+            document.getElementById("status").textContent = "✅ Payment Successfully Received";
+            document.getElementById("bill").style.display = "block";
+
+            // Show product details
+            document.getElementById("orderDetails").innerHTML = `
+        <img src="${product.image}" width="100"><br>
+        <strong>Name:</strong> ${product.name}<br>
+        <strong>Details:</strong> ${product.details}<br>
+        <strong>Quantity:</strong> ${product.quantity}<br>
+        <strong>Total Price:</strong> ₹${product.price * product.quantity}<br>
+      `;
+            document.getElementById("paymentMode").textContent = paymentMode;
+
+            // Add to orders
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.push({...product,
+                paymentMode,
+                date: new Date().toLocaleString()
+            });
+            localStorage.setItem("orders", JSON.stringify(orders));
+        } else {
+            document.getElementById("status").textContent = "❌ Payment Not Completed";
+            localStorage.removeItem("selectedProduct");
+        }
+
+        // Clear payment status
+        localStorage.removeItem("isPaid");
+    </script>
+</body>
+
+</html>

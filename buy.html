@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buy Product</title>
+</head>
+
+<body>
+    <h2>Confirm The Delivery Address
+    </h2>
+    <div id="confirm"></div>
+
+    <h3>Delivery Address</h3>
+    <input type="text" id="name" placeholder="Name">
+    <input type="number" id="phone" placeholder="Phone">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="landmark" placeholder="Landmark">
+    <input type="number" id="pincode" placeholder="Pincode">
+    <button onclick="confirmOrder()">Confirm Order</button>
+
+    <script>
+        const product = JSON.parse(localStorage.getItem('buyNowProduct'));
+        const confirmDiv = document.getElementById('confirm');
+
+        if (product) {
+            confirmDiv.innerHTML = `
+        <img src="${product.image}" width="150">
+        <p>${product.name}</p>
+        <p>₹${product.price} × ${product.quantity}</p>
+      `;
+        }
+
+        function confirmOrder() {
+            const userDetails = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value
+            };
+            localStorage.setItem('deliveryInfo', JSON.stringify(userDetails));
+            alert("Go To Payment!");
+            window.location.href = 'payment.html';
+        }
+    </script>
+</body>
+
+</html>

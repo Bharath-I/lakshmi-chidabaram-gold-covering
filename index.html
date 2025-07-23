@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Lakshmi Gold Covering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf6ef;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            text-align: center;
+            color: #a37038;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #a37038;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #c59052;
+        }
+        
+        .link-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .link-login a {
+            color: #a37038;
+            text-decoration: none;
+        }
+        
+        .link-login a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Register</h2>
+        <form onsubmit="return registerUser(event)">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="email">Email or Phone</label>
+            <input type="text" id="email" placeholder="Enter your email or phone" required>
+
+            <label for="password">Create Password</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="link-login">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+            <p><a href="index.html">← Back to Home</a></p>
+        </div>
+    </div>
+
+    <script>
+        function registerUser(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            // Save to localStorage (temporary, mock demo)
+            localStorage.setItem("registeredUser", JSON.stringify({
+                name,
+                email,
+                password
+            }));
+            alert("Registration successful! Please login now.");
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+
+</html>

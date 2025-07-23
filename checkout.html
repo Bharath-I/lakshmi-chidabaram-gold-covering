@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Checkout</title>
+</head>
+
+<body>
+    <h2>Confirm Your Order</h2>
+    <div id="items"></div>
+    <label>Address: <input type="text" id="address" placeholder="Enter delivery address"></label><br><br>
+    <button onclick="placeOrder()">Place Order</button>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem("buyNowProduct"));
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const container = document.getElementById("items");
+
+        let total = 0;
+        if (data && data.type === "cart") {
+            cart.forEach(item => {
+                const subtotal = item.quantity * item.price;
+                total += subtotal;
+                container.innerHTML += `
+          <div>
+            <img src="${item.image}" width="100"><br>
+            <strong>${item.name}</strong><br>
+            ${item.details}<br>
+            Qty: ${item.quantity} | ₹${subtotal}
+            <hr>
+          </div>
+        `;
+            });
+        } else if (data) {
+            const subtotal = data.quantity * data.price;
+            total = subtotal;
+            container.innerHTML = `
+        <div>
+          <img src="${data.image}" width="100"><br>
+          <strong>${data.name}</strong><br>
+          ${data.details}<br>
+          Qty: ${data.quantity} | ₹${subtotal}
+        </div>
+      `;
+        }
+
+        function placeOrder() {
+            const address = document.getElementById("address").value;
+            if (!address) return alert("Enter your address");
+            alert("Go to Confirm The Address!\nAddress: " + address + "\nTotal: ₹" + total);
+            localStorage.removeItem("cart");
+            localStorage.removeItem("buyNowProduct");
+            window.location.href = "buy.html";
+        }
+    </script>
+</body>
+
+</html>
