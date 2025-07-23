@@ -2,30 +2,36 @@
 <html>
 
 <head>
-    <title>Pay with Paytm</title>
+    <title>Paytm Payment</title>
 </head>
 
-<body onload="makePayment()">
-    <h2>Redirecting to Paytm...</h2>
+<body>
+    <h2>Pay with Paytm/h2>
+        <p>Click the button below to open GPay and complete the payment.</p>
+        <a id="upiLink">
+            <img src="img/paytm-circle-logo-hd-png-701751694706614zmho56voff.png" alt="Paytm" width="150">
+        </a>
 
-    <script>
-        function makePayment() {
-            const price = localStorage.getItem("productPrice") || "0";
-            document.getElementById("priceDisplay").innerText = price;
+        <br><br>
+        <button onclick="confirmPayment(true)">✅ Yes, I Paid</button>
+        <button onclick="confirmPayment(false)">❌ No, I Didn't</button>
 
-            // Construct UPI deep link
-            const upiUrl = `upi://pay?pa=lakshmigold@upi&pn=Lakshmi%20Gold%20Covering&am=${price}&cu=INR`;
-            document.getElementById("upiLink").href = upiUrl;
+        <script>
+            const amount = localStorage.getItem("paymentAmount") || "0.00";
+            const upiID = "lakshmigold@oksbi"; // Admin UPI ID
+            const name = "Lakshmi Chidambaram";
 
-            setTimeout(() => {
-                if (confirm("Did you complete the payment?")) {
+            const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+            document.getElementById("upiLink").href = upiLink;
+
+            function confirmPayment(paid) {
+                if (paid) {
                     window.location.href = "payment-success.html";
                 } else {
                     window.location.href = "payment-failed.html";
                 }
-            }, 5000);
-        }
-    </script>
+            }
+        </script>
 </body>
 
 </html>
