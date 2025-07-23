@@ -2,28 +2,34 @@
 <html>
 
 <head>
-    <title>Pay with GPay</title>
+    <title>GPay Payment</title>
 </head>
 
-<body onload="makePayment()">
-    <h2>Redirecting to GPay...</h2>
+<body>
+    <h2>Pay with GPay</h2>
+    <p>Click the button below to open GPay and complete the payment.</p>
+    <a id="upiLink">
+        <img src="img/google-pay-gpay-logo-11530962961mwws81tde9.png" alt="GPay" width="150">
+    </a>
+
+    <br><br>
+    <button onclick="confirmPayment(true)">✅ Yes, I Paid</button>
+    <button onclick="confirmPayment(false)">❌ No, I Didn't</button>
 
     <script>
-        function makePayment() {
-            const price = localStorage.getItem("productPrice") || "0";
-            document.getElementById("priceDisplay").innerText = price;
+        const amount = localStorage.getItem("paymentAmount") || "0.00";
+        const upiID = "lakshmigold@oksbi"; // Admin UPI ID
+        const name = "Lakshmi Chidambaram";
 
-            // Construct UPI deep link
-            const upiUrl = `upi://pay?pa=lakshmigold@upi&pn=Lakshmi%20Gold%20Covering&am=${price}&cu=INR`;
-            document.getElementById("upiLink").href = upiUrl;
+        const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+        document.getElementById("upiLink").href = upiLink;
 
-            setTimeout(() => {
-                if (confirm("Did you complete the payment?")) {
-                    window.location.href = "payment-success.html";
-                } else {
-                    window.location.href = "payment-failed.html";
-                }
-            }, 5000);
+        function confirmPayment(paid) {
+            if (paid) {
+                window.location.href = "payment-success.html";
+            } else {
+                window.location.href = "payment-failed.html";
+            }
         }
     </script>
 </body>
